@@ -116,87 +116,93 @@
                                         Audio</a>
                                 </div> --}}
                                     <div class="d-flex justify-content-end w-100">
-                                        <button type="button" class="btn btn-primary btn-lg">Create Post</button>
+                                        <button type="submit" class="btn btn-primary btn-lg">Create Post</button>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     @endauth
                     {{-- Posts Here --}}
-                    <div class="box shadow-sm border rounded bg-white mb-3 user-post">
-                        <div class="p-3 d-flex align-items-center border-bottom user-post-header">
-                            <div class="dropdown-list-image mr-3">
-                                <img class="rounded-circle" src="img/p5.png" alt="">
-                                <div class="status-indicator bg-success"></div>
+                    @foreach ($posts as $post)
+                        <div class="box mb-3 shadow-sm border rounded bg-white user-post">
+                            <div class="p-3 d-flex align-items-center border-bottom user-post-header">
+                                <div class="dropdown-list-image mr-3">
+                                    <img class="rounded-circle"
+                                        src="https://ui-avatars.com/api/?name={{ $post->user->first_name . '+' . $post->user->last_name }}"
+                                        alt="">
+                                    <div class="status-indicator bg-success"></div>
+                                </div>
+                                <div class="font-weight-bold">
+                                    <div class="text-truncate">
+                                        {{ $post->user->first_name . ' ' . $post->user->last_name }}</div>
+                                    <div class="small text-gray-500">{{ $post->user->occupation }}</div>
+                                </div>
+                                <span
+                                    class="ml-auto small">{{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</span>
                             </div>
-                            <div class="font-weight-bold">
-                                <div class="text-truncate">Stephen Vincent Strange</div>
-                                <div class="small text-gray-500">Avengers Inc.</div>
+                            <div class="p-3 border-bottom user-post-body">
+                                <a href="#">
+                                    <h6 class="font-weight-bold text-dark mb-2">{{ $post->topic }}</h6>
+                                </a>
+                                <p class="mb-2">{{ $post->description }}</p>
+                                @if (optional($post->image)->image)
+                                    <div class="img-wrapper mt-4">
+                                        <img src="{{ asset('img/posts/' . optional($post->image)->image) }}"
+                                            class="img-fluid" alt="Responsive image">
+                                    </div>
+                                @endif
+                                @if (optional($post->video)->video)
+                                    <hr>
+                                    <div class="img-wrapper mt-4">
+                                        <video width="100%" controls>
+                                            <source src="{{ asset('img/posts/' . optional($post->video)->video) }}"
+                                                type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    </div>
+                                @endif
+                                @if (optional($post->audio)->audio)
+                                    <hr>
+                                    <div class="img-wrapper mt-4">
+                                        <audio width="100%" controls>
+                                            <source src="{{ asset('img/posts/' . optional($post->audio)->audio) }}"
+                                                type="audio/mpeg">
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                    </div>
+                                @endif
                             </div>
-                            <span class="ml-auto small">3 hours</span>
-                        </div>
-                        <div class="p-3 border-bottom user-post-body">
-                            <p class="mb-0">Tmpo incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                nostrud exercitation ullamco <a href="#">laboris consequat.</a></p>
-                        </div>
-                        <div class="p-3 border-bottom user-post-footer">
-                            <a href="#" class="mr-3 text-secondary"><i class="feather-heart text-danger"></i> 16</a>
-                            <a href="#" class="mr-3 text-secondary"><i class="feather-message-square"></i> 8</a>
-                            <a href="#" class="mr-3 text-secondary"><i class="feather-share-2"></i> 2</a>
-                        </div>
-                        <div class="p-3">
-                            <button type="button" class="btn btn-outline-primary btn-sm mr-1">Awesome!!</button>
-                            <button type="button" class="btn btn-light btn-sm mr-1">😍</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm mr-1">Whats it about?</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm mr-1">Oooo Great Wow</button>
-                        </div>
-                    </div>
-                    <div class="box mb-3 shadow-sm border rounded bg-white user-post">
-                        <div class="p-3 d-flex align-items-center border-bottom user-post-header">
-                            <div class="dropdown-list-image mr-3">
-                                <img class="rounded-circle" src="img/p6.png" alt="">
-                                <div class="status-indicator bg-success"></div>
+                            {{-- <div class="p-3 border-bottom user-post-footer">
+                                <a href="#" class="mr-3 text-secondary"><i class="feather-heart text-danger"></i> 16</a>
+                                <a href="#" class="mr-3 text-secondary"><i class="feather-message-square"></i> 8</a>
+                                <a href="#" class="mr-3 text-secondary"><i class="feather-share-2"></i> 2</a>
                             </div>
-                            <div class="font-weight-bold">
-                                <div class="text-truncate">Collin Weiland</div>
-                                <div class="small text-gray-500">Web Developer @Envato</div>
+                            <div class="p-3 d-flex align-items-top border-bottom user-post-comment">
+                                <div class="dropdown-list-image mr-3">
+                                    <img class="rounded-circle" src="img/p7.png" alt="">
+                                    <div class="status-indicator bg-success"></div>
+                                </div>
+                                <div class="font-weight-bold">
+                                    <div class="text-truncate"> James Spiegel <span class="float-right small">2 min</span>
+                                    </div>
+                                    <div class="small text-gray-500">Ratione voluptatem sequi en lod nesciunt. Neque porro
+                                        quisquam est, quinder dolorem ipsum quia dolor sit amet, consectetur</div>
+                                </div>
                             </div>
-                            <span class="ml-auto small">3 hours</span>
+                            <div class="p-3">
+                                <textarea placeholder="Add Comment..." class="form-control border-0 p-0 shadow-none"
+                                    rows="1"></textarea>
+                            </div> --}}
                         </div>
-                        <div class="p-3 border-bottom user-post-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur 😍😎 adipisicing elit, sed do eiusmod tempo
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco <a href="#">laboris consequat.</a></p>
-                            <img src="img/post1.png" class="img-fluid" alt="Responsive image">
-                        </div>
-                        <div class="p-3 border-bottom user-post-footer">
-                            <a href="#" class="mr-3 text-secondary"><i class="feather-heart text-danger"></i> 16</a>
-                            <a href="#" class="mr-3 text-secondary"><i class="feather-message-square"></i> 8</a>
-                            <a href="#" class="mr-3 text-secondary"><i class="feather-share-2"></i> 2</a>
-                        </div>
-                        <div class="p-3 d-flex align-items-top border-bottom user-post-comment">
-                            <div class="dropdown-list-image mr-3">
-                                <img class="rounded-circle" src="img/p7.png" alt="">
-                                <div class="status-indicator bg-success"></div>
-                            </div>
-                            <div class="font-weight-bold">
-                                <div class="text-truncate"> James Spiegel <span class="float-right small">2 min</span></div>
-                                <div class="small text-gray-500">Ratione voluptatem sequi en lod nesciunt. Neque porro
-                                    quisquam est, quinder dolorem ipsum quia dolor sit amet, consectetur</div>
-                            </div>
-                        </div>
-                        <div class="p-3">
-                            <textarea placeholder="Add Comment..." class="form-control border-0 p-0 shadow-none"
-                                rows="1"></textarea>
-                        </div>
-                    </div>
+                    @endforeach
                 </main>
                 {{-- Quick Profile View --}}
                 @auth
                     <aside class="col col-xl-4 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12">
                         <div class="box mb-3 shadow-sm border rounded bg-white profile-box text-center">
                             <div class="py-4 px-3 border-bottom">
-                                <img src="https://ui-avatars.com/api/?name={{ auth()->user()->first_name .'+'. auth()->user()->last_name }}" class="img-fluid mt-2 rounded-circle" alt="Responsive image">
+                                <img src="https://ui-avatars.com/api/?name={{ auth()->user()->first_name . '+' . auth()->user()->last_name }}"
+                                    class="img-fluid mt-2 rounded-circle" alt="Responsive image">
                                 <h5 class="font-weight-bold text-dark mb-1 mt-4">
                                     {{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}</h5>
                                 <p class="mb-0 text-muted">{{ auth()->user()->occupation }}</p>
@@ -241,7 +247,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Add Category</button>
+                                <button type="submit" class="btn btn-primary">Add Category</button>
                             </div>
                         </form>
                     </div>

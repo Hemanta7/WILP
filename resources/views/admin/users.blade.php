@@ -1,0 +1,130 @@
+@extends('admin.layouts.master')
+@section('breadcrumb', 'View Users')
+@section('content')
+<div class="content ing-scrollbar-style">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="#"><button class="btn btn-success btn-wd text-uppercase mb-3" type="submit">Add
+                        User</button></a>
+                @if (Session('message'))
+                    <div class="alert alert-success">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
+                            <i class="nc-icon nc-simple-remove"></i>
+                        </button>
+                        <span>
+                            <b> Success - </b> {{ Session('message') }}
+                        </span>
+                    </div>
+                @endif
+                @if ($users->count() == 0)
+                    <div class="ing-not-found">
+                        <div class="ing-icon-container">
+                            <i class="ing-warning-icon"></i>
+                        </div>
+                        <h3 class="text-center">Users not found.</h3>
+                        <p class="text-center">You can start adding users by clicking "ADD USER" button above.</p>
+                    </div>
+                @else
+                    @if (Session('s-message'))
+                        <div class="alert alert-success">
+                            <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
+                                <i class="nc-icon nc-simple-remove"></i>
+                            </button>
+                            <span>
+                                <b> Success - </b> {{ Session('s-message') }}
+                            </span>
+                        </div>
+                    @endif
+                    <div class="card data-tables">
+                        <div
+                            class="card-body table-striped table-no-bordered table-hover dataTable dtr-inline table-full-width">
+                            <div class="fresh-datatables">
+                                <table id="" class="display table table-striped table-no-bordered table-hover"
+                                    cellspacing="0" width="100%" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>First Name</th>
+                                            <th>Email</th>
+                                            <th>Destination</th>
+
+                                            {{-- <th class="disabled-sorting">Make Admin</th> --}}
+                                            <th class="disabled-sorting">Status</th>
+                                            <th class="disabled-sorting text-right">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($users as $user)
+                                            <tr>
+                                                <td>{{ $user->id }}</td>
+                                                <td>{{ $user->first_name }} {{ $user->last_name }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>{{ $user->occupation }}</td>
+                                                {{-- <td>
+                                                    @if ($user->role != 'student')
+                                                        <form action="{{ route('manage.role', $user->id) }}"
+                                                            method="POST">
+                                                            {{ csrf_field() }}
+                                                            <div class="form-check">
+                                                                <label class="form-check-label pl-0">
+                                                                    <input class="form-check-input" name="role"
+                                                                        value="{{ $user->role == 'superadmin' ? 'admin' : 'superadmin' }}"
+                                                                        type="checkbox" onclick="this.form.submit()"
+                                                                        {{ $user->role == 'superadmin' ? 'checked' : '' }}>
+                                                                    <span class="form-check-sign"></span>
+                                                                    Superuser
+                                                                </label>
+                                                            </div>
+                                                        </form>
+                                                    @endif
+                                                </td> --}}
+                                                <td>
+                                                    {{ $user->status }}
+                                                    {{-- <form action="{{ route('disable.account', $user->id) }}"
+                                                        method="POST">
+                                                        {{ csrf_field() }}
+                                                        <div class="form-check">
+                                                            <label class="form-check-label pl-0">
+                                                                <input class="form-check-input" name="active"
+                                                                    value="{{ $user->active == 1 ? '0' : '1' }}"
+                                                                    type="checkbox" onChange="this.form.submit()"
+                                                                    {{ $user->active == 1 ? 'checked' : '' }}>
+                                                                <span class="form-check-sign"></span>
+                                                                Active
+                                                            </label>
+                                                        </div>
+                                                    </form> --}}
+                                                </td>
+                                                <td class="text-right">
+                                                    <ul style="list-style: none;" class="m-0 p-0">
+                                                        <li>
+                                                            <button class="m-0 btn btn-danger btn-wd disabled" type="submit"><i
+                                                                    class="far fa-trash-alt"></i>
+                                                                Delete</button>
+                                                            {{-- <form action="{{ route('delete.user', $user->id) }}"
+                                                                method="POST" class="d-inline p-0 m-0">
+                                                                {{ csrf_field() }}
+                                                                <input type="hidden" name="_method" value="DELETE">
+                                                                <a href="" onclick="return confirm('Are you sure?')">
+                                                                    <button class="m-0 btn btn-danger btn-wd"
+                                                                        type="submit"><i class="far fa-trash-alt"></i>
+                                                                        Delete</button>
+                                                                </a>
+                                                            </form> --}}
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
