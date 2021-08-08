@@ -10,7 +10,7 @@ class PublicController extends Controller
 {
     public function getHomepage()
     {
-        dd(phpinfo());
+        // dd(phpinfo());
         $categories = PostCategory::all();
         $posts = Post::where('approval_status', 'approved')->orderBy('created_at', 'desc')->get();
         return view('public.homepage')->with('categories', $categories)->with('posts', $posts);
