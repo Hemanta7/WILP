@@ -105,7 +105,7 @@
                                                             <label class="form-check-label pl-0">
                                                                 <input class="form-check-input" name="status"
                                                                     type="checkbox" onChange="this.form.submit()"
-                                                                    {{ $post->approval_status }}>
+                                                                    {{ $post->approval_status }} {{ $post->approval_status == 'approved' ? 'checked' : '' }}>
                                                                 <span class="form-check-sign"></span>
                                                                 {{ $post->approval_status }}
                                                             </label>
