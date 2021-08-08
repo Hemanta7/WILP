@@ -16,7 +16,8 @@ class CustomerController extends Controller
 {
     public function getProfile()
     {
-        return view('customer.profile');
+        $posts = Post::where('user_id', Auth::user()->id)->get();    
+        return view('customer.profile')->with('posts', $posts);
     }
 
     // Post Campaign

@@ -210,7 +210,7 @@
                             <div class="d-flex">
                                 <div class="col-12 border-right p-3">
                                     <p class="mb-2 text-black-50 small">Your Total Campaigns</p>
-                                    <h6 class="font-weight-bold text-dark mb-0">324</h6>
+                                    <h6 class="font-weight-bold text-dark mb-0">{{ $posts->count() }}</h6>
                                 </div>
                             </div>
                             <div class="overflow-hidden border-top">
