@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PostCategory extends Model
 {
     use HasFactory;
-    protected $primarykey = 'category_id';
+    // protected $primarykey = 'category_id';
 
     public function posts()
     {

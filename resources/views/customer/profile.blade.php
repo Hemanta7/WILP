@@ -8,7 +8,7 @@
                 <aside class="col col-xl-4 order-xl-1 col-lg-12 order-lg-1 col-12">
                     <div class="box mb-3 shadow-sm border rounded bg-white profile-box text-center">
                         <div class="py-4 px-3 border-bottom">
-                            <img src="img/p13.png" class="img-fluid mt-2 rounded-circle" alt="Responsive image">
+                            <img src="https://ui-avatars.com/api/?name={{ Auth::user()->first_name . '+' . Auth::user()->last_name }}" class="img-fluid mt-2 rounded-circle" alt="Responsive image">
                             <h5 class="font-weight-bold text-dark mb-1 mt-4">{{ Auth::user()->first_name }}
                                 {{ Auth::user()->last_name }}</h5>
                             <p class="mb-0 text-muted">{{ Auth::user()->occupation }}</p>
@@ -68,11 +68,12 @@
                                         class="ml-auto small">{{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</span>
                                 </div>
                                 <div class="p-3 border-bottom user-post-body">
-                                    <a href="#">
-                                        <h6 class="font-weight-bold text-dark mb-2">{{ $post->topic }} <small>|
-                                                {{ $post->approval_status }}</small></h6>
-                                    </a>
+                                    <h6 class="font-weight-bold text-dark mb-2">{{ $post->topic }} <span
+                                            class="font-weight-light small badge badge-secondary">Approval Status -
+                                            {{ $post->approval_status }}</span></h6>
                                     <p class="mb-2">{{ $post->description }}</p>
+                                    <p><span class="badge badge-primary">
+                                            {{ $post->category->title }}</span></p>
                                     @if (optional($post->image)->image)
                                         <div class="img-wrapper mt-4">
                                             <img src="{{ asset('img/posts/' . optional($post->image)->image) }}"

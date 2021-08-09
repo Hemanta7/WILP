@@ -150,6 +150,8 @@
                                 <a href="#">
                                     <h6 class="font-weight-bold text-dark mb-2">{{ $post->topic }}</h6>
                                 </a>
+                                <p><span class="badge badge-primary">
+                                        {{ $post->category->title }}</span></p>
                                 <p class="mb-2">{{ $post->description }}</p>
                                 @if (optional($post->image)->image)
                                     <div class="img-wrapper mt-4">
