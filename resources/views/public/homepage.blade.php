@@ -35,6 +35,9 @@
                                                     </div>
                                                 @endif
                                                 <div class="col-12">
+                                                    @error('category')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
                                                     <div class="form-group">
                                                         <select placeholder="Category"
                                                             class="form-control form-control-lg shadow-none" name="category">
@@ -53,6 +56,9 @@
                                                     </div>
                                                 </div> --}}
                                                 <div class="col-12">
+                                                    @error('topic')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
                                                     <div class="form-group">
                                                         <input type="text" name="topic"
                                                             class="form-control shadow-none form-control-lg"
@@ -60,6 +66,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
+                                                    @error('description')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
                                                     <div class="form-group">
                                                         <textarea placeholder="Description..."
                                                             class="form-control form-control-lg shadow-none" rows="5"
@@ -115,8 +124,15 @@
                                     <a href="#" class="text-link small"><i class="feather-headphones"></i> Add
                                         Audio</a>
                                 </div> --}}
-                                    <div class="d-flex justify-content-end w-100">
-                                        <button type="submit" class="btn btn-primary btn-lg">Create Post</button>
+                                    <div class="d-flex align-items-center justify-content-end w-100">
+                                        @can('isActive')
+                                            <button type="submit" class="btn btn-primary btn-lg">Create Post</button>
+                                        @else
+                                            <p class="p-0 m-0 mr-3 text-danger">Your account is not active. Please contact
+                                                administrator for further operations</p>
+                                            <button type="button" style="cursor: not-allowed"
+                                                class="disabled btn btn-primary btn-lg">Create Post</button>
+                                        @endcan
                                     </div>
                                 </div>
                             </div>

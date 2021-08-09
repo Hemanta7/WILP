@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -32,6 +33,14 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('isSuperadmin', function (User $user) {
             return $user->role == 'superadmin';
+        });
+
+        Gate::define('isActive', function (User $user) {
+            return $user->status == 'active';
+        });
+
+        Gate::define('canEdit', function (User $user, Post $post) {
+            return $user->id == $post->user_id;
         });
     }
 }

@@ -15,6 +15,8 @@ Route::middleware('role:customer')->group(function () {
     Route::get('/profile', [CustomerController::class, 'getProfile'])->name('customer.profile');
     // Post Campaign
     Route::post('/campaign/post', [CustomerController::class, 'postCampaign'])->name('post.campaign');
+    Route::post('/campaign/edit/{id}', [CustomerController::class, 'editCampaign'])->name('edit.campaign');
+    Route::post('/campaign/delete/{id}', [CustomerController::class, 'deleteCampaign'])->name('delete.campaign');
     Route::post('/category/add', [CustomerController::class, 'addCategory'])->name('add.category');
 });
 // Admin Routes
