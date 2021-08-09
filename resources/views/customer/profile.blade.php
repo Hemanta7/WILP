@@ -9,8 +9,9 @@
                     <div class="box mb-3 shadow-sm border rounded bg-white profile-box text-center">
                         <div class="py-4 px-3 border-bottom">
                             <img src="img/p13.png" class="img-fluid mt-2 rounded-circle" alt="Responsive image">
-                            <h5 class="font-weight-bold text-dark mb-1 mt-4">Steve Rogers</h5>
-                            <p class="mb-0 text-muted">Avengers Inc.</p>
+                            <h5 class="font-weight-bold text-dark mb-1 mt-4">{{ Auth::user()->first_name }}
+                                {{ Auth::user()->last_name }}</h5>
+                            <p class="mb-0 text-muted">{{ Auth::user()->occupation }}</p>
                         </div>
                         <div class="d-flex">
                             <div class="col-12 border-right p-3">
@@ -19,7 +20,12 @@
                             </div>
                         </div>
                         <div class="overflow-hidden border-top">
-                            <a class="font-weight-bold p-3 d-block" href="sign-in.html"> Log Out </a>
+                            <a class="font-weight-bold p-3 d-block" href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Log Out
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                @csrf
+                            </form>
                         </div>
                     </div>
                     <div class="box shadow-sm mb-3 rounded bg-white ads-box text-center">
@@ -37,6 +43,13 @@
                         <div class="box-title border-bottom p-3">
                             <h6 class="m-0">Posted Campaigns</h6>
                         </div>
+                        @if ($posts->count() == 0)
+                            <div
+                                class="p-3 d-flex flex-column justify-content-center align-items-center border-bottom user-post-header">
+                                <h5 class="mt-4 mb-4">Sorry we couldn't find any post</h5>
+                                <img src="{{ asset('img/not-found.png') }}" alt="post-not-found" width="100px">
+                            </div>
+                        @endif
                         @foreach ($posts as $post)
                             <div class="box mb-3 shadow-sm border rounded bg-white user-post">
                                 <div class="p-3 d-flex align-items-center border-bottom user-post-header">
@@ -56,7 +69,8 @@
                                 </div>
                                 <div class="p-3 border-bottom user-post-body">
                                     <a href="#">
-                                        <h6 class="font-weight-bold text-dark mb-2">{{ $post->topic }}  <small>| {{ $post->approval_status }}</small></h6>
+                                        <h6 class="font-weight-bold text-dark mb-2">{{ $post->topic }} <small>|
+                                                {{ $post->approval_status }}</small></h6>
                                     </a>
                                     <p class="mb-2">{{ $post->description }}</p>
                                     @if (optional($post->image)->image)
@@ -108,7 +122,7 @@
                                     rows="1"></textarea>
                             </div> --}}
                             </div>
-                        @endforeach                       
+                        @endforeach
                     </div>
                 </main>
             </div>

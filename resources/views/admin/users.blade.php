@@ -5,8 +5,6 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <a href="#"><button class="btn btn-success btn-wd text-uppercase mb-3" type="submit">Add
-                        User</button></a>
                 @if (Session('message'))
                     <div class="alert alert-success">
                         <button type="button" aria-hidden="true" class="close" data-dismiss="alert">
@@ -45,11 +43,12 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>First Name</th>
+                                            <th>Name</th>
                                             <th>Email</th>
-                                            <th>Destination</th>
-
-                                            {{-- <th class="disabled-sorting">Make Admin</th> --}}
+                                            <th>Occupation</th>
+                                            <th>Location</th>
+                                            <th>Role</th>
+                                            <th class="disabled-sorting">Make Admin</th>
                                             <th class="disabled-sorting">Status</th>
                                             <th class="disabled-sorting text-right">Actions</th>
                                         </tr>
@@ -58,60 +57,69 @@
                                         @foreach ($users as $user)
                                             <tr>
                                                 <td>{{ $user->id }}</td>
-                                                <td>{{ $user->first_name }} {{ $user->last_name }}</td>
+                                                <td>{{ ucfirst($user->first_name) }} {{ ucfirst($user->last_name) }}
+                                                </td>
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->occupation }}</td>
-                                                {{-- <td>
-                                                    @if ($user->role != 'student')
-                                                        <form action="{{ route('manage.role', $user->id) }}"
-                                                            method="POST">
-                                                            {{ csrf_field() }}
-                                                            <div class="form-check">
-                                                                <label class="form-check-label pl-0">
-                                                                    <input class="form-check-input" name="role"
-                                                                        value="{{ $user->role == 'superadmin' ? 'admin' : 'superadmin' }}"
-                                                                        type="checkbox" onclick="this.form.submit()"
-                                                                        {{ $user->role == 'superadmin' ? 'checked' : '' }}>
-                                                                    <span class="form-check-sign"></span>
-                                                                    Superuser
-                                                                </label>
-                                                            </div>
-                                                        </form>
-                                                    @endif
-                                                </td> --}}
+                                                <td>{{ ucfirst($user->country) }}, {{ ucfirst($user->state) }},
+                                                    {{ ucfirst($user->city) }}</td>
                                                 <td>
-                                                    {{ $user->status }}
-                                                    {{-- <form action="{{ route('disable.account', $user->id) }}"
+                                                    <label class="form-check-label pl-0">
+                                                        {{ $user->role }}
+                                                    </label>
+                                                </td>
+                                                <td>
+                                                    <form action="{{ route('manage.role', $user->id) }}"
                                                         method="POST">
                                                         {{ csrf_field() }}
                                                         <div class="form-check">
                                                             <label class="form-check-label pl-0">
-                                                                <input class="form-check-input" name="active"
-                                                                    value="{{ $user->active == 1 ? '0' : '1' }}"
-                                                                    type="checkbox" onChange="this.form.submit()"
-                                                                    {{ $user->active == 1 ? 'checked' : '' }}>
+                                                                <input class="form-check-input" name="role"
+                                                                    value="{{ $user->role == 'superadmin' ? 'admin' : 'superadmin' }}"
+                                                                    type="checkbox" onclick="this.form.submit()"
+                                                                    {{ $user->role == 'admin' ? 'checked' : '' }}>
                                                                 <span class="form-check-sign"></span>
-                                                                Active
+                                                                Make Admin
                                                             </label>
                                                         </div>
-                                                    </form> --}}
+                                                    </form>
+                                                </td>
+                                                <td>
+                                                    <label class="form-check-label pl-0">
+                                                        {{ ucfirst($user->status) }}
+                                                    </label>
                                                 </td>
                                                 <td class="text-right">
                                                     <ul style="list-style: none;" class="m-0 p-0">
-                                                        <li>
-                                                            <button class="m-0 btn btn-danger btn-wd disabled" type="submit"><i
-                                                                    class="far fa-trash-alt"></i>
-                                                                Delete</button>
-                                                            {{-- <form action="{{ route('delete.user', $user->id) }}"
+                                                        <li class="mb-2">
+                                                            <form
+                                                                action="{{ route('manage.user.status', $user->id) }}"
                                                                 method="POST" class="d-inline p-0 m-0">
                                                                 {{ csrf_field() }}
-                                                                <input type="hidden" name="_method" value="DELETE">
+                                                                @if ($user->status == 'active')
+                                                                    {{-- <input type="hidden" name="_method" value="PUT"> --}}
+                                                                    <button class="m-0 btn btn-secondary btn-wd"
+                                                                        type="submit"><i
+                                                                            class="fas fa-times-circle"></i>
+                                                                        Deactivate</button>
+                                                                @else
+                                                                    <button class="m-0 btn btn-success btn-wd"
+                                                                        type="submit"><i
+                                                                            class="fas fa-check-circle"></i>
+                                                                        Activate</button>
+                                                                @endif
+                                                            </form>
+                                                        </li>
+                                                        <li>
+                                                            <form action="{{ route('delete.user', $user->id) }}"
+                                                                method="POST" class="d-inline p-0 m-0">
+                                                                {{ csrf_field() }}
                                                                 <a href="" onclick="return confirm('Are you sure?')">
                                                                     <button class="m-0 btn btn-danger btn-wd"
                                                                         type="submit"><i class="far fa-trash-alt"></i>
                                                                         Delete</button>
                                                                 </a>
-                                                            </form> --}}
+                                                            </form>
                                                         </li>
                                                     </ul>
                                                 </td>

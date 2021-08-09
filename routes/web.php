@@ -27,14 +27,11 @@ Route::prefix('admin')->group(function () {
         // Approve and Disapprove Post
         Route::post('/change/post-status/{id}', [AdminController::class, 'changePostStatus'])->name('change.post');
     });
-});
 
-// Super Admin Routes
-Route::middleware('role:superadmin')->group(function () {
-    Route::get('/manage-user', [SuperUserController::class, 'getUser'])->name('manage.user');
-    Route::get('/manage-user/add', [SuperUserController::class, 'getAddUser'])->name('add.user');
-    Route::post('/manage-user/add', [SuperUserController::class, 'postAddUser'])->name('add.user');
-    Route::delete('/manage-user/delete/{id}', [SuperUserController::class, 'postDeleteUser'])->name('delete.user');
-    Route::post('/manage-user/role/{id}', [SuperUserController::class, 'postManageRole'])->name('manage.role');
-    Route::post('/manage-user/disable/{id}', [SuperUserController::class, 'postDisableAccount'])->name('disable.account');
+    // Super Admin Routes
+    Route::middleware('role:superadmin')->group(function () {
+        Route::post('/manage-role/{id}', [SuperAdminController::class, 'manageRole'])->name('manage.role');
+        Route::post('/manage-user-status/{id}', [SuperAdminController::class, 'manageUserStatus'])->name('manage.user.status');
+        Route::post('/delete-user/{id}', [SuperAdminController::class, 'deleteUser'])->name('delete.user');
+    });
 });

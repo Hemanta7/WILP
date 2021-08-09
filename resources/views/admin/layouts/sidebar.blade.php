@@ -7,23 +7,23 @@
         </div>
         <ul class="nav">
             <li class="nav-item ">
-                <a class="nav-link" href="{{ route('user.list') }}">
+                <a class="nav-link" href="{{ route('admin.dashboard') }}">
                     <i class="nc-icon nc-layers-3"></i>
-                    <p>All Users</p>
+                    <p>Dashboard</p>
                 </a>
             </li>
-			<li class="nav-item ">
+            <li class="nav-item ">
                 <a class="nav-link" href="{{ route('post.list') }}">
-                    <i class="nc-icon nc-layers-3"></i>
-                    <p>All Posts</p>
+                    <i class="nc-icon nc-single-copy-04"></i>
+                    <p>Manage Posts</p>
                 </a>
             </li>
             {{-- Manage User --}}
-            @can('manage-users')
+            @can('isSuperadmin')
                 <li class="nav-item ">
-                    <a class="nav-link" href="#">
-                        <i class="nc-icon nc-settings-gear-64"></i>
-                        <p>Manage User</p>
+                    <a class="nav-link" href="{{ route('user.list') }}">
+                        <i class="nc-icon nc-circle-09"></i>
+                        <p>Manage Users</p>
                     </a>
                 </li>
             @endcan

@@ -34,7 +34,7 @@
                                                         </div>
                                                     </div>
                                                 @endif
-                                                <div class="col-8">
+                                                <div class="col-12">
                                                     <div class="form-group">
                                                         <select placeholder="Category"
                                                             class="form-control form-control-lg shadow-none" name="category">
@@ -46,12 +46,12 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-4">
+                                                {{-- <div class="col-4">
                                                     <div class="form-group">
                                                         <button type="button" class="btn btn-block btn-lg btn-success"
                                                             data-toggle="modal" data-target="#addcategory">Add Category</button>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <div class="col-12">
                                                     <div class="form-group">
                                                         <input type="text" name="topic"
@@ -122,7 +122,13 @@
                             </div>
                         </form>
                     @endauth
-                    {{-- Posts Here --}}
+                    @if ($posts->count() == 0)
+                        <div
+                            class="p-3 d-flex flex-column justify-content-center align-items-center border-bottom user-post-header">
+                            <h2 class="mt-4 mb-4">Sorry we couldn't find any post</h2>
+                            <img src="{{ asset('img/not-found.png') }}" alt="post-not-found" width="200px">
+                        </div>
+                    @endif
                     @foreach ($posts as $post)
                         <div class="box mb-3 shadow-sm border rounded bg-white user-post">
                             <div class="p-3 d-flex align-items-center border-bottom user-post-header">

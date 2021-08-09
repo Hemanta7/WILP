@@ -10,12 +10,14 @@ class AdminController extends Controller
 {
     public function getDashboard()
     {
-        return view('admin.dashboard');
+        $posts = Post::all();
+        $users = User::all();
+        return view('admin.dashboard')->with('posts', $posts)->with('users', $users);
     }
     // See Users List
     public function getUsers()
     {
-        $users = User::all();
+        $users = User::where('role', '!=', 'superadmin')->get();
         return view('admin.users')->with('users', $users);
     }
     // See Post List

@@ -41,8 +41,10 @@ class CustomerController extends Controller
             $postImage = new PostImage();
             $image = $request->file('image');
             $imageName = time() . "." . $image->getClientOriginalExtension();
-            $imageLocation = public_path('img/posts') . "/" . $imageName;
-            $image = Image::make($image)->save($imageLocation);
+            // $imageLocation = public_path('img/posts') . "/" . $imageName;
+            $imageLocation = public_path('img/posts');
+            $image->move($imageLocation, $imageName);
+            // $image = Image::make($image)->save($imageLocation);
             $postImage->post_id = $post->id;
             $postImage->image = $imageName;
             $postImage->save();

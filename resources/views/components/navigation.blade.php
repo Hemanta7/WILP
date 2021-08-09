@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand mr-2" href="{{ url('/') }}"><img src="img/logo.png" alt="">
         </a>
-        <form class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search">
+        {{-- <form class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
                 <input type="text" class="form-control shadow-none border-0"
                     placeholder="Search people,companies & more..." aria-label="Search" aria-describedby="basic-addon2">
@@ -12,10 +12,10 @@
                     </button>
                 </div>
             </div>
-        </form>
+        </form> --}}
         <ul class="navbar-nav ml-auto d-flex align-items-center">
             {{-- Dropdown Search Box --}}
-            <li class="nav-item dropdown no-arrow d-sm-none">
+            {{-- <li class="nav-item dropdown no-arrow d-sm-none">
                 <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     <i class="feather-search mr-2"></i>
@@ -35,7 +35,7 @@
                         </div>
                     </form>
                 </div>
-            </li>
+            </li> --}}
             {{-- <li class="nav-item">
                 <a class="nav-link" href="company.html"><i class="feather-briefcase mr-2"></i><span
                         class="d-none d-lg-inline">Companies</span></a>
@@ -115,6 +115,10 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('customer.profile') }}"><i class="feather-user mr-1"></i>
                             Profile</a>
+                        @can('isAdmin')
+                            <a class="dropdown-item" href="{{ route('admin.dashboard') }}"><i class="feather-user mr-1"></i>
+                                Dashboard</a>
+                        @endcan
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="feather-log-out mr-1"></i> Logout
